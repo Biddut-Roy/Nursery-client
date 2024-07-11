@@ -1,11 +1,19 @@
+import { Rating } from "@smastrom/react-rating";
+import FilterSearch from "../FilterSearch";
+import PaginationP from "../PaginationP";
+import { useState } from "react";
+
 const Allproduct = () => {
+  const [rating, setRating] = useState(3);
   return (
     <div>
       <div className="text-center p-10">
         <h1 className="font-bold text-4xl mb-4">
           Responsive Product card grid
         </h1>
-        <h1 className="text-3xl">Tailwind CSS</h1>
+        <div>
+          <FilterSearch />
+        </div>
       </div>
 
       <section
@@ -15,17 +23,18 @@ const Allproduct = () => {
         <div className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
           <a href="#">
             <img
-              src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+              src="https://i.ibb.co/PTJfDjT/The-best-artificial-grass-525x350.webp"
               alt="Product"
               className="h-80 w-72 object-cover rounded-t-xl"
             />
             <div className="px-4 py-3 w-72">
-              <span className="text-gray-400 mr-3 uppercase text-xs">
-                Brand
-              </span>
               <p className="text-lg font-bold text-black truncate block capitalize">
                 Product Name
               </p>
+              <span className="text-gray-400 mr-3 uppercase text-xs">
+                <Rating style={{ maxWidth: 150 }} value={rating} readOnly />
+              </span>
+
               <div className="flex items-center">
                 <p className="text-lg font-semibold text-black cursor-auto my-3">
                   $149
@@ -276,6 +285,9 @@ const Allproduct = () => {
           </a>{" "}
           for those AMAZING product images!
         </h2>
+      </div>
+      <div>
+        <PaginationP />
       </div>
     </div>
   );
