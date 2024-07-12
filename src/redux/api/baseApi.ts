@@ -13,13 +13,23 @@ export const baseApi = createApi({
     }),
     addProduct: builder.mutation({
       query: (data) => ({
-        url: "/task",
+        url: "/product/add",
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["nursery"],
     }),
+    getProduct: builder.query({
+      query: () => ({
+        url: "/product/get",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetCategoryQuery, useAddProductMutation } = baseApi;
+export const {
+  useGetCategoryQuery,
+  useAddProductMutation,
+  useGetProductQuery,
+} = baseApi;

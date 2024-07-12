@@ -2,9 +2,13 @@ import { Rating } from "@smastrom/react-rating";
 import FilterSearch from "../FilterSearch";
 import PaginationP from "../PaginationP";
 import { useState } from "react";
+import { useGetProductQuery } from "../../../redux/api/baseApi";
 
 const Allproduct = () => {
   const [rating, setRating] = useState(3);
+  const { data } = useGetProductQuery({});
+  console.log(data);
+
   return (
     <div id="product">
       <div className="text-center p-10 ">

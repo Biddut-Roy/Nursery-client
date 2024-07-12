@@ -3,14 +3,15 @@ import { ChangeEvent, useState, FormEvent } from "react";
 import { Rating, ThinStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
+import { useAddProductMutation } from "../../redux/api/baseApi";
 
 interface TFormData {
   title: string;
-  price: string;
-  image: string; // Changed from File | null to string to store image URL
+  price: number;
+  image: string;
   rating: number;
-  selectedValue: string;
-  message: string;
+  category: string;
+  description: string;
 }
 
 const Added = () => {
@@ -22,8 +23,10 @@ const Added = () => {
   const [price, setPrice] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [rating, setRating] = useState(0);
-  const [selectedValue, setSelectedValue] = useState("All");
-  const [message, setMessage] = useState("");
+  const [selectedValue, setSelectedValue] = useState("Flower Plants");
+  const [description, setDescription] = useState("");
+
+  const [addProduct, { data, isSuccess }] = useAddProductMutation();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
@@ -33,34 +36,37 @@ const Added = () => {
     e.preventDefault();
     if (file) {
       try {
-        const formData = new FormData();
-        formData.append("image", file);
+        // const formData = new FormData();
+        // formData.append("image", file);
+        // const res = await axios.post(IMG_IMG_HOSTING, formData, {
+        //   headers: { "Content-Type": "multipart/form-data" },
+        // });
 
-        const res = await axios.post(IMG_IMG_HOSTING, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        const image = res.data.data.url;
+        // const image = res.data.data.url;
+        const image = "dummy";
+        const pri = parseInt(price, 10);
 
         const submittedData: TFormData = {
           title,
-          price,
+          price: pri,
           image,
           rating,
-          selectedValue,
-          message,
+          category: selectedValue,
+          description,
         };
 
-        console.log("Form Data Submitted:", submittedData);
         // Handle form submission (e.g., send data to an API)
+        addProduct(submittedData);
 
+        console.log("Form Data Submitted:", data, isSuccess, { submittedData });
         // Reset form fields
         setTitle("");
         setPrice("");
         setFile(null);
         setRating(0);
         setSelectedValue("All");
-        setMessage("");
+        setDescription("");
+        setFile(null);
       } catch (error) {
         console.error("Error uploading image:", error);
         // Handle the error accordingly
@@ -154,18 +160,18 @@ const Added = () => {
       </div>
       <div>
         <label
-          htmlFor="message"
+          htmlFor="description"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
-          Your message
+          Product description
         </label>
         <textarea
-          id="message"
+          id="description"
           rows={4}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Leave a comment..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         ></textarea>
       </div>
       <button
