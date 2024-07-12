@@ -8,6 +8,7 @@ const Added = () => {
   const [rating, setRating] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
     setSelectedValue(event.target.value);
   };
 
