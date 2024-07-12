@@ -6,8 +6,8 @@ import { useState } from "react";
 const Allproduct = () => {
   const [rating, setRating] = useState(3);
   return (
-    <div>
-      <div className="text-center p-10">
+    <div id="product">
+      <div className="text-center p-10 ">
         <h1 className="font-bold text-4xl mb-4">
           Responsive Product card grid
         </h1>

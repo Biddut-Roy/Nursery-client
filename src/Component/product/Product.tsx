@@ -1,6 +1,12 @@
+import { useGetCategoryQuery } from "../../redux/api/baseApi";
+
 const Product = () => {
+  const { data } = useGetCategoryQuery({});
+
+  console.log(data);
+
   return (
-    <div>
+    <div id="category">
       <div className="container mx-auto">
         <h2 className="text-2xl font-bold mb-4">Shop By Popular Categories</h2>
         <p className="text-gray-500 mb-8">Shop all</p>
