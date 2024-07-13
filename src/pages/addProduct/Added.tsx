@@ -36,14 +36,14 @@ const Added = () => {
     e.preventDefault();
     if (file) {
       try {
-        // const formData = new FormData();
-        // formData.append("image", file);
-        // const res = await axios.post(IMG_IMG_HOSTING, formData, {
-        //   headers: { "Content-Type": "multipart/form-data" },
-        // });
+        const formData = new FormData();
+        formData.append("image", file);
+        const res = await axios.post(IMG_IMG_HOSTING, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
 
-        // const image = res.data.data.url;
-        const image = "dummy";
+        const image = res.data.data.url;
+
         const pri = parseInt(price, 10);
 
         const submittedData: TFormData = {
@@ -144,16 +144,16 @@ const Added = () => {
             value={selectedValue}
             onChange={handleChange}
           >
-            <option value="Flower Plants">Flower Plants</option>
-            <option value="Fruits Plants">Fruits Plants</option>
-            <option value="Bonsai Plants">Bonsai Plants</option>
-            <option value="Bamboo Plants">Bamboo Plants</option>
-            <option value="Cactus Plants">Cactus Plants</option>
-            <option value="Rose Plants">Rose Plants</option>
-            <option value="Plants Pot">Bamboo Plants</option>
+            <option value="Flower">Flower Plants</option>
+            <option value="Fruits">Fruits Plants</option>
+            <option value="Bonsai">Bonsai Plants</option>
+            <option value="Bamboo">Bamboo Plants</option>
+            <option value="Cactus">Cactus Plants</option>
+            <option value="Rose ">Rose Plants</option>
+            <option value="Plants">Bamboo Plants</option>
             <option value="Fertilizers">Fertilizers</option>
-            <option value="Mango Plants">Mango Plants</option>
-            <option value="Gardening Tools">Gardening Tools</option>
+            <option value="Mango">Mango Plants</option>
+            <option value="Gardening">Gardening Tools</option>
             <option value="Pebbles">Pebbles</option>
           </select>
         </div>

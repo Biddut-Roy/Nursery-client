@@ -20,10 +20,21 @@ export const baseApi = createApi({
       invalidatesTags: ["nursery"],
     }),
     getProduct: builder.query({
-      query: () => ({
-        url: "/product/get",
-        method: "GET",
-      }),
+      query: ({ search, filter, page }) => {
+        const params = new URLSearchParams();
+
+        if (search) {
+          params.append("search", search);
+        }
+        if (filter) {
+          params.append("filter", filter);
+        }
+        if (page) {
+          params.append("page", page);
+        }
+        console.log({ search, filter });
+        return { url: `/product/get?${params.toString()}`, method: "GET" };
+      },
     }),
   }),
 });

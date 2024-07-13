@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Rating } from "@smastrom/react-rating";
 import FilterSearch from "../FilterSearch";
 import PaginationP from "../PaginationP";
 import { useGetProductQuery } from "../../../redux/api/baseApi";
+import { useState } from "react";
 
 interface TProduct {
   category: string;
@@ -14,21 +16,44 @@ interface TProduct {
 }
 
 const Allproduct = () => {
-  const { data } = useGetProductQuery({});
-  console.log(data);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>("Flower");
+
+  const { data } = useGetProductQuery({
+    search: searchInput,
+    filter: selectedValue,
+    page: currentPage,
+  });
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
+  const handleCardDetails = (product: TProduct) => {
+    // Logic to show card details modal or update state for details display
+    // For simplicity, I'm just logging the selected product here
+    console.log("Selected Product:", product);
+  };
 
   return (
     <div id="product">
       <div className="text-center p-10 ">
         <h1 className="font-bold text-4xl mb-4">Latest Product</h1>
         <div>
-          <FilterSearch />
+          <FilterSearch
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </div>
 
       <section
         id="Projects"
-        className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-10 gap-x-5 mt-10 mb-5"
+        className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-10 gap-x-5 mt-10 mb-5"
       >
         {data?.data.map((item: TProduct, i: number) => (
           <div
@@ -70,6 +95,7 @@ const Allproduct = () => {
                       fill="currentColor"
                       className="bi bi-bag-plus"
                       viewBox="0 0 16 16"
+                      onClick={() => handleCardDetails(item)}
                     >
                       <path
                         fill-rule="evenodd"
@@ -84,8 +110,11 @@ const Allproduct = () => {
           </div>
         ))}
       </section>
-      <div className=" my-5">
-        <PaginationP />
+      <div className=" my-5 items-center">
+        <PaginationP
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
