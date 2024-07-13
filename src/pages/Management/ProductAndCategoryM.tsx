@@ -20,6 +20,17 @@ export interface TProduct {
   category: string;
 }
 
+export interface TProducts {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  price: number;
+  quantity: number;
+  rating: number;
+  category: string;
+}
+
 const ProductAndCategoryM = () => {
   const { data, isLoading } = useAllProductQuery({});
   const [deleteProduct, { isSuccess }] = useDeleteProductMutation();
@@ -27,23 +38,25 @@ const ProductAndCategoryM = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [file, setFile] = useState("");
+  const [price, setPrice] = useState("");
+  const [file, setFile] = useState<File | null | undefined>();
   const [rating, setRating] = useState(0);
   const [selectedValue, setSelectedValue] = useState("");
   const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
 
   const toggleModal = (item: TProduct) => {
+    const prices = String(item.price);
+    const QTA = String(item.quantity);
     setIsOpen(!isOpen);
     setTitle(item.title);
-    setPrice(item.price);
-    setFile(item.image);
+    setPrice(prices);
     setRating(item.rating);
     setSelectedValue(item.category);
     setDescription(item.description);
-    setQuantity(item.quantity);
+    setQuantity(QTA);
   };
+
   const toggleModal1 = () => {
     setIsOpen(!isOpen);
   };
@@ -75,15 +88,18 @@ const ProductAndCategoryM = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const formData = new FormData();
+    const formData = new FormData();
+    let image;
+
+    if (file) {
       formData.append("image", file);
       const res = await axios.post(IMG_IMG_HOSTING, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      image = res.data.data.url;
+    }
 
-      const image = res.data.data.url;
-
+    try {
       const pri = parseInt(price, 10);
 
       const qta = parseInt(quantity, 10);
@@ -104,7 +120,6 @@ const ProductAndCategoryM = () => {
       // Reset form fields
       setTitle("");
       setPrice("");
-      setFile(null);
       setRating(0);
       setSelectedValue("All");
       setDescription("");

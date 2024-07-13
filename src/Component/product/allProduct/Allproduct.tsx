@@ -4,6 +4,8 @@ import FilterSearch from "../FilterSearch";
 import PaginationP from "../PaginationP";
 import { useGetProductQuery } from "../../../redux/api/baseApi";
 import { useState } from "react";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setCheckout } from "../../../redux/features/auth/authSlice";
 
 interface TProduct {
   category: string;
@@ -26,6 +28,8 @@ const Allproduct = () => {
     page: currentPage,
   });
 
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
   };
@@ -34,6 +38,7 @@ const Allproduct = () => {
     // Logic to show card details modal or update state for details display
     // For simplicity, I'm just logging the selected product here
     console.log("Selected Product:", product);
+    dispatch(setCheckout("asas"));
   };
 
   return (

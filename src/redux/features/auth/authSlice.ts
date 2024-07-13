@@ -23,6 +23,8 @@ const storeSlice = createSlice({
   reducers: {
     setCheckout: (state, action) => {
       const { checkout } = action.payload;
+      console.log(checkout);
+
       state.checkout = checkout;
     },
     clearCheckout: (state) => {
