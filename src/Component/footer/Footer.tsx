@@ -2,56 +2,54 @@ const Footer = () => {
   return (
     <div className="bg-gray-100 container">
       <div className="max-w-screen-lg py-5 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto">
-        <div className="p-5 sm:w-2/12 border-r">
+        <div className="p-5 sm:w-2/12 border-r mt-5 lg:mt-10">
           <div className="text-sm uppercase text-indigo-600 font-bold">
             Menu
           </div>
           <ul>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
+              <a className="hover:text-indigo-600" href="/">
                 Home
               </a>
             </li>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
-                Services
+              <a className="hover:text-indigo-600" href="#category">
+                Category
               </a>
             </li>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
+              <a className="hover:text-indigo-600" href="#product">
                 Products
-              </a>
-            </li>
-            <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
-                Pricing
               </a>
             </li>
           </ul>
         </div>
         <div className="p-5 sm:w-7/12 border-r text-center">
           <h3 className="font-bold text-xl text-indigo-600 mb-4">
-            Componentity
+            Nursery Online
           </h3>
           <p className="text-gray-500 text-sm mb-10">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+            I will suggest you to join our team and create a nursery in your
+            local area. There is a huge opportunity to build up a smart career.
+            <br /> <br />
+            If you need any help or have some questions then feel free to
+            contact us. Please don’t forget to share this website with your
+            nearest people.
           </p>
         </div>
-        <div className="p-5 sm:w-3/12">
+        <div className="p-5 sm:w-3/12 mt-5 lg:mt-10">
           <div className="text-sm uppercase text-indigo-600 font-bold">
             Contact Us
           </div>
           <ul>
             <li className="my-2">
               <a className="hover:text-indigo-600" href="#">
-                XXX XXXX, Floor 4 San Francisco, CA
+                Parbatipur Floor 4 , Dinajpur, Bangladesh
               </a>
             </li>
             <li className="my-2">
               <a className="hover:text-indigo-600" href="#">
-                contact@company.com
+                contact@nurseryonline.com
               </a>
             </li>
           </ul>
@@ -59,7 +57,7 @@ const Footer = () => {
       </div>
       <div className="flex py-2 m-auto text-gray-800 text-sm flex-col items-center border-t max-w-screen-xl">
         <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
-          <a href="#" className="w-6 mx-1">
+          <a href="https://x.com/?mx=2" className="w-6 mx-1">
             <svg
               className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"
               width="100%"
@@ -69,7 +67,6 @@ const Footer = () => {
               xmlns="http://www.w3.org/2000/svg"
               xmlnsXlink="http://www.w3.org/1999/xlink"
               xmlSpace="preserve"
-              xmlnsSerif="http://www.serif.com/"
               style={{
                 fillRule: "evenodd",
                 clipRule: "evenodd",
@@ -83,7 +80,7 @@ const Footer = () => {
               ></path>
             </svg>
           </a>
-          <a href="#" className="w-6 mx-1">
+          <a href="https://www.facebook.com" className="w-6 mx-1">
             <svg
               className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"
               width="100%"
@@ -93,7 +90,6 @@ const Footer = () => {
               xmlns="http://www.w3.org/2000/svg"
               xmlnsXlink="http://www.w3.org/1999/xlink"
               xmlSpace="preserve"
-              xmlnsSerif="http://www.serif.com/"
               style={{
                 fillRule: "evenodd",
                 clipRule: "evenodd",
@@ -107,35 +103,10 @@ const Footer = () => {
               ></path>
             </svg>
           </a>
-          <a href="#" className="w-6 mx-1">
-            <svg
-              className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"
-              width="100%"
-              height="100%"
-              viewBox="0 0 24 24"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              xmlSpace="preserve"
-              xmlnsSerif="http://www.serif.com/"
-              style={{
-                fillRule: "evenodd",
-                clipRule: "evenodd",
-                strokeLinejoin: "round",
-                strokeMiterlimit: 2,
-              }}
-            >
-              <g id="Layer_1">
-                <circle id="Oval" cx="12" cy="12" r="12"></circle>
-                <path
-                  id="Shape"
-                  d="M19.05,8.362c0,-0.062 0,-0.125 -0.063,-0.187l0,-0.063c-0.187,-0.562 -0.687,-0.937 -1.312,-0.937l0.125,0c0,0 -2.438,-0.375 -5.75,-0.375c-3.25,0 -5.75,0.375 -5.75,0.375l0.125,0c-0.625,0 -1.125,0.375 -1.313,0.937l0,0.063c0,0.062 0,0.125 -0.062,0.187c-0.063,0.625 -0.25,1.938 -0.25,3.438c0,1.5 0.187,2.812 0.25,3.437c0,0.063 0,0.125 0.062,0.188l0,0.062c0.188,0.563 0.688,0.938 1.313,0.938l-0.125,0c0,0 2.438,0.375 5.75,0.375c3.312,0 5.75,-0.375 5.75,-0.375l-0.125,0c0.625,0 1.125,-0.375 1.312,-0.938l0,-0.062c0.063,-0.063 0.063,-0.125 0.063,-0.188c0.063,-0.625 0.25,-1.938 0.25,-3.437c0,-1.5 -0.125,-2.813 -0.25,-3.438Zm-9.562,6.438l0,-6l5.25,3.062l-5.25,2.938Z"
-                ></path>
-              </g>
-            </svg>
-          </a>
         </div>
-        <div className="my-5">© 2024 Componentity. All rights reserved.</div>
+        <div className="my-5">
+          © 2024 Nursery-online. All rights reserved. Customized By NIll
+        </div>
       </div>
     </div>
   );
