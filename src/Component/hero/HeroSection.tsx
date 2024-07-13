@@ -12,8 +12,8 @@ const HeroSection = () => {
         </div>
 
         <div className="relative z-10 flex flex-col justify-center items-center h-svh text-center">
-          <h1 className="text-5xl font-bold leading-tight mb-4">
-            Welcome to Our Awesome Website
+          <h1 className="text-5xl font-bold leading-tight mb-4 text-blue-600">
+            Welcome to Our Awesome Nursery
           </h1>
           <p className="text-lg text-white mb-8">
             Discover amazing features and services that await you.

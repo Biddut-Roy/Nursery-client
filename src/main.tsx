@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import { Toaster } from "sonner";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./Route/route";
@@ -15,5 +15,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <RouterProvider router={router} />
       </PersistGate>
     </Provider>
+    <Toaster position="top-right" />
   </React.StrictMode>
 );

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
-  tagTypes: ["nursery"],
+  tagTypes: ["nursery", "Product"],
   endpoints: (builder) => ({
     getCategory: builder.query({
       query: () => ({
@@ -32,9 +32,22 @@ export const baseApi = createApi({
         if (page) {
           params.append("page", page);
         }
-        console.log({ search, filter });
+
         return { url: `/product/get?${params.toString()}`, method: "GET" };
       },
+    }),
+    allProduct: builder.query({
+      query: () => ({
+        url: `/product/all`,
+        method: "GET",
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/product/delete/?id=${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Product"],
     }),
   }),
 });
@@ -43,4 +56,6 @@ export const {
   useGetCategoryQuery,
   useAddProductMutation,
   useGetProductQuery,
+  useDeleteProductMutation,
+  useAllProductQuery,
 } = baseApi;

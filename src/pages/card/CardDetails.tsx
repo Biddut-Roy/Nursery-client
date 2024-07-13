@@ -1,4 +1,7 @@
+// import { useParams } from "react-router-dom";
+
 const CardDetails = () => {
+  // const { id } = useParams();
   return (
     <div className=" min-h-[500px] mt-10">
       <div className="w-[300px] rounded-md border bg-white dark:bg-gray-800 shadow-lg transition-colors duration-500 mx-auto">

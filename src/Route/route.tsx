@@ -4,6 +4,7 @@ import LandingPage from "../Layout/landingPage/LandingPage";
 import ProductAndCategoryM from "../pages/Management/ProductAndCategoryM";
 import Added from "../pages/addProduct/Added";
 import ShopingCard from "../pages/shopingCard/ShopingCard";
+import CardDetails from "../pages/card/CardDetails";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         element: <Added />,
       },
       {
-        path: "/card",
+        path: "/shop",
         element: <ShopingCard />,
+      },
+      {
+        path: "/card/:id",
+        element: <CardDetails />,
       },
     ],
   },

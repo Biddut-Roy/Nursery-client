@@ -4,6 +4,7 @@ import { Rating, ThinStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import { useAddProductMutation } from "../../redux/api/baseApi";
+import { toast } from "sonner";
 
 interface TFormData {
   title: string;
@@ -12,6 +13,7 @@ interface TFormData {
   rating: number;
   category: string;
   description: string;
+  quantity: number;
 }
 
 const Added = () => {
@@ -25,8 +27,24 @@ const Added = () => {
   const [rating, setRating] = useState(0);
   const [selectedValue, setSelectedValue] = useState("Flower Plants");
   const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState("");
 
-  const [addProduct, { data, isSuccess }] = useAddProductMutation();
+  const [addProduct, { isSuccess }] = useAddProductMutation();
+
+  if (isSuccess) {
+    const promise = () =>
+      new Promise((resolve) =>
+        setTimeout(() => resolve({ name: "Sonner" }), 2000)
+      );
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data: any) => {
+        return `${data.name} toast has been added`;
+      },
+      error: "Error",
+    });
+  }
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
@@ -46,6 +64,8 @@ const Added = () => {
 
         const pri = parseInt(price, 10);
 
+        const qta = parseInt(quantity, 10);
+
         const submittedData: TFormData = {
           title,
           price: pri,
@@ -53,12 +73,12 @@ const Added = () => {
           rating,
           category: selectedValue,
           description,
+          quantity: qta,
         };
 
         // Handle form submission (e.g., send data to an API)
         addProduct(submittedData);
 
-        console.log("Form Data Submitted:", data, isSuccess, { submittedData });
         // Reset form fields
         setTitle("");
         setPrice("");
@@ -66,7 +86,7 @@ const Added = () => {
         setRating(0);
         setSelectedValue("All");
         setDescription("");
-        setFile(null);
+        setQuantity("");
       } catch (error) {
         console.error("Error uploading image:", error);
         // Handle the error accordingly
@@ -75,24 +95,44 @@ const Added = () => {
   };
 
   return (
-    <form className="max-w-xl mx-auto my-10" onSubmit={handleSubmit}>
-      <div className="relative z-0 w-full mb-5 group">
-        <input
-          type="text"
-          name="Title"
-          id="Title"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label
-          htmlFor="Title"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-          Product Title
-        </label>
+    <form className="max-w-xl mx-auto my-10 mt-15 " onSubmit={handleSubmit}>
+      <div className="grid md:grid-cols-2 md:gap-6 pt-10">
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="text"
+            name="Title"
+            id="Title"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <label
+            htmlFor="Title"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Product Title
+          </label>
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+          <label
+            htmlFor="price"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            quantity
+          </label>
+        </div>
       </div>
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
@@ -138,8 +178,8 @@ const Added = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <select
-            id="pricingType"
-            name="pricingType"
+            id="category"
+            name="category"
             className="w-full h-10 border-2 text-gray-900  border-gray-300  cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider"
             value={selectedValue}
             onChange={handleChange}

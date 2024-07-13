@@ -1,31 +1,29 @@
 const Footer = () => {
   return (
-    <div className="bg-gray-100 container">
-      <div className="max-w-screen-lg py-5 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto">
+    <div className="bg-gray-100 w-full">
+      <div className="py-5 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto">
         <div className="p-5 sm:w-2/12 border-r mt-5 lg:mt-10">
-          <div className="text-sm uppercase text-indigo-600 font-bold">
-            Menu
-          </div>
+          <div className="text-sm uppercase text-blue-600 font-bold">Menu</div>
           <ul>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="/">
+              <a className="hover:text-blue-600" href="/">
                 Home
               </a>
             </li>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#category">
+              <a className="hover:text-blue-600" href="#category">
                 Category
               </a>
             </li>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#product">
+              <a className="hover:text-blue-600" href="#product">
                 Products
               </a>
             </li>
           </ul>
         </div>
         <div className="p-5 sm:w-7/12 border-r text-center">
-          <h3 className="font-bold text-xl text-indigo-600 mb-4">
+          <h3 className="font-bold text-xl text-blue-600 mb-4">
             Nursery Online
           </h3>
           <p className="text-gray-500 text-sm mb-10">
@@ -38,17 +36,17 @@ const Footer = () => {
           </p>
         </div>
         <div className="p-5 sm:w-3/12 mt-5 lg:mt-10">
-          <div className="text-sm uppercase text-indigo-600 font-bold">
+          <div className="text-sm uppercase text-blue-600 font-bold">
             Contact Us
           </div>
           <ul>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
+              <a className="hover:text-blue-600" href="#">
                 Parbatipur Floor 4 , Dinajpur, Bangladesh
               </a>
             </li>
             <li className="my-2">
-              <a className="hover:text-indigo-600" href="#">
+              <a className="hover:text-blue-600" href="#">
                 contact@nurseryonline.com
               </a>
             </li>
@@ -59,7 +57,7 @@ const Footer = () => {
         <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
           <a href="https://x.com/?mx=2" className="w-6 mx-1">
             <svg
-              className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"
+              className="fill-current cursor-pointer text-gray-500 hover:text-blue-600"
               width="100%"
               height="100%"
               viewBox="0 0 24 24"
@@ -82,7 +80,7 @@ const Footer = () => {
           </a>
           <a href="https://www.facebook.com" className="w-6 mx-1">
             <svg
-              className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"
+              className="fill-current cursor-pointer text-gray-500 hover:text-blue-600"
               width="100%"
               height="100%"
               viewBox="0 0 24 24"
@@ -104,7 +102,7 @@ const Footer = () => {
             </svg>
           </a>
         </div>
-        <div className="my-5">
+        <div className="m-5">
           © 2024 Nursery-online. All rights reserved. Customized By NIll
         </div>
       </div>
