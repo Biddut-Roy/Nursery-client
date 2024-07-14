@@ -5,7 +5,8 @@ import PaginationP from "../PaginationP";
 import { useGetProductQuery } from "../../../redux/api/baseApi";
 import { useState } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setCheckout } from "../../../redux/features/auth/authSlice";
+import { addProduct } from "../../../redux/features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 interface TProduct {
   category: string;
@@ -38,7 +39,7 @@ const Allproduct = () => {
     // Logic to show card details modal or update state for details display
     // For simplicity, I'm just logging the selected product here
     console.log("Selected Product:", product);
-    dispatch(setCheckout("asas"));
+    dispatch(addProduct(product));
   };
 
   return (
@@ -65,12 +66,15 @@ const Allproduct = () => {
             key={i}
             className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
           >
-            <a href="#">
-              <img
-                src={item?.image}
-                alt="Product"
-                className="h-80 w-72 object-cover rounded-t-xl"
-              />
+            <a>
+              <Link to={`/card/${item._id}`}>
+                <img
+                  src={item?.image}
+                  alt="Product"
+                  className="h-80 w-72 object-cover rounded-t-xl"
+                />
+              </Link>
+
               <div className="px-4 py-3 w-72">
                 <p className="text-lg font-bold text-black truncate block capitalize">
                   {item?.title}
@@ -89,10 +93,13 @@ const Allproduct = () => {
                   </p>
                   <del>
                     <p className="text-sm text-gray-600 cursor-auto ml-2">
-                      $199
+                      {item?.price - 15}
                     </p>
                   </del>
-                  <div className="ml-auto">
+                  <div
+                    onClick={() => handleCardDetails(item)}
+                    className="ml-auto"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -100,7 +107,6 @@ const Allproduct = () => {
                       fill="currentColor"
                       className="bi bi-bag-plus"
                       viewBox="0 0 16 16"
-                      onClick={() => handleCardDetails(item)}
                     >
                       <path
                         fill-rule="evenodd"

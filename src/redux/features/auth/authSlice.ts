@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
-export type TUser = {
+export type Product = {
   category: string;
   title: string;
   price: number;
@@ -9,11 +10,13 @@ export type TUser = {
   image: string;
 };
 
-type TAuthState = {
-  checkout: null | TUser;
-};
+interface StoreState {
+  products: Product[];
+  checkout: Product | null;
+}
 
-const initialState: TAuthState = {
+const initialState: StoreState = {
+  products: [],
   checkout: null,
 };
 
@@ -21,18 +24,22 @@ const storeSlice = createSlice({
   name: "store",
   initialState,
   reducers: {
-    setCheckout: (state, action) => {
-      const { checkout } = action.payload;
-      console.log(checkout);
-
-      state.checkout = checkout;
+    addProduct: (state, action: PayloadAction<Product>) => {
+      state.products.push(action.payload);
     },
-    clearCheckout: (state) => {
-      state.checkout = null;
+    removeProduct: (state, action: PayloadAction<string>) => {
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload
+      );
+    },
+    clearProducts: (state) => {
+      state.products = [];
     },
   },
 });
 
-export const { setCheckout } = storeSlice.actions;
+export const { addProduct, removeProduct, clearProducts } = storeSlice.actions;
 
 export default storeSlice.reducer;
+
+export const selectProducts = (state: RootState) => state.store.products;

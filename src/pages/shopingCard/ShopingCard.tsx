@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppSelector } from "../../redux/hooks";
+import { selectProducts } from "../../redux/features/auth/authSlice";
 
 type TShoppingCard = {
   name: string;
@@ -7,6 +9,10 @@ type TShoppingCard = {
 };
 
 const ShopingCard = () => {
+  const products = useAppSelector(selectProducts);
+
+  console.log(products);
+
   const [cart, setCart] = useState([
     {
       name: "Aloe Vera Tree",

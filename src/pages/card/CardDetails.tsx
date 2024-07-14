@@ -1,10 +1,12 @@
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const CardDetails = () => {
-  // const { id } = useParams();
+  const { _id } = useParams();
+  console.log(_id);
+
   return (
-    <div className=" min-h-[500px] mt-10">
-      <div className="w-[300px] rounded-md border bg-white dark:bg-gray-800 shadow-lg transition-colors duration-500 mx-auto">
+    <div className=" min-h-[500px] mt-10 pt-10">
+      <div className="w-[300px]  rounded-md border bg-white dark:bg-gray-800 shadow-lg transition-colors duration-500 mx-auto">
         <img
           src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60"
           alt="Laptop"
