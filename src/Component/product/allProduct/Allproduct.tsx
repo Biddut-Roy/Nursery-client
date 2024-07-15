@@ -36,9 +36,6 @@ const Allproduct = () => {
   };
 
   const handleCardDetails = (product: TProduct) => {
-    // Logic to show card details modal or update state for details display
-    // For simplicity, I'm just logging the selected product here
-    console.log("Selected Product:", product);
     dispatch(addProduct(product));
   };
 
@@ -67,7 +64,7 @@ const Allproduct = () => {
             className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
           >
             <a>
-              <Link to={`/card/${item._id}`}>
+              <Link to={`/card/${item?._id}`}>
                 <img
                   src={item?.image}
                   alt="Product"

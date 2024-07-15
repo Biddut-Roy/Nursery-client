@@ -33,8 +33,7 @@ export interface TProducts {
 
 const ProductAndCategoryM = () => {
   const { data, isLoading } = useAllProductQuery({});
-  const [deleteProduct, { isSuccess }] = useDeleteProductMutation();
-  console.log(isSuccess);
+  const [deleteProduct] = useDeleteProductMutation();
 
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
