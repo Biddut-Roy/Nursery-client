@@ -1,45 +1,7 @@
-import { Button } from "../../components/ui/button";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    // <nav classNameName="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
-    //   <div classNameName="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-    //     <div classNameName="text-blue-500 md:order-1">
-    //       <img src="/logo.webp" alt="" classNameName=" h-10" />
-    //     </div>
-    //     <div classNameName="text-gray-500 order-3 w-full md:w-auto md:order-2">
-    //       <ul classNameName="flex font-semibold justify-between">
-    //         <li classNameName="md:px-4 md:py-2 text-blue-500">
-    //           <a href="/">Home</a>
-    //         </li>
-    //         <li classNameName="md:px-4 md:py-2 hover:text-blue-400">
-    //           <a href="#product">Product</a>
-    //         </li>
-    //         <li classNameName="md:px-4 md:py-2 hover:text-blue-400">
-    //           <a href="#category">Category</a>
-    //         </li>
-    //         <li classNameName="md:px-4 md:py-2 hover:text-blue-400">
-    //           <a href="#">Gallery</a>
-    //         </li>
-    //         <li classNameName="md:px-4 md:py-2 hover:text-blue-400">
-    //           <a href="#">Contact</a>
-    //         </li>
-    //       </ul>
-    //     </div>
-    //     <div classNameName="order-2 md:order-3">
-    //       <Button classNameName="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-gray-50 rounded-xl flex items-center gap-2">
-    //         <img
-    //           width="20"
-    //           height="20"
-    //           src="https://img.icons8.com/ios/50/checkout.png"
-    //           alt="checkout"
-    //         />
-    //         <span>Checkout</span>
-    //       </Button>
-    //     </div>
-    //   </div>
-    // </nav>
-
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -49,7 +11,10 @@ const Navbar = () => {
           </span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Button className="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-gray-50 rounded-xl flex items-center gap-2">
+          <Link
+            to={"/shop"}
+            className="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-gray-50 rounded-xl flex items-center gap-2"
+          >
             <img
               width="20"
               height="20"
@@ -57,7 +22,7 @@ const Navbar = () => {
               alt="checkout"
             />
             <span>Checkout</span>
-          </Button>
+          </Link>
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"

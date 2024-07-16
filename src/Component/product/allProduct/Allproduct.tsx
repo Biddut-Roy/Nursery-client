@@ -7,16 +7,8 @@ import { useState } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addProduct } from "../../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
-
-interface TProduct {
-  category: string;
-  description: string;
-  image: string;
-  price: number;
-  rating: number;
-  title: string;
-  _id: string;
-}
+import { TProduct, TProductCard } from "../../../type";
+import { Toaster, toast } from "sonner";
 
 const Allproduct = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -35,12 +27,16 @@ const Allproduct = () => {
     event.preventDefault();
   };
 
-  const handleCardDetails = (product: TProduct) => {
-    dispatch(addProduct(product));
+  const handleCardDetails = (product: TProductCard) => {
+    const result = dispatch(addProduct(product));
+    if (result) {
+      toast.success("Product Add to Card");
+    }
   };
 
   return (
     <div id="product">
+      <Toaster position="top-center" />
       <div className="text-center p-10 ">
         <h1 className="font-bold text-4xl mb-4">Latest Product</h1>
         <div>
@@ -90,11 +86,11 @@ const Allproduct = () => {
                   </p>
                   <del>
                     <p className="text-sm text-gray-600 cursor-auto ml-2">
-                      {item?.price - 15}
+                      {""}
                     </p>
                   </del>
                   <div
-                    onClick={() => handleCardDetails(item)}
+                    onClick={() => handleCardDetails({ ...item, QAT: 1 })}
                     className="ml-auto"
                   >
                     <svg
@@ -106,7 +102,7 @@ const Allproduct = () => {
                       viewBox="0 0 16 16"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"
                       />
                       <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />

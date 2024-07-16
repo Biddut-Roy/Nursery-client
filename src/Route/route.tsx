@@ -5,6 +5,7 @@ import ProductAndCategoryM from "../pages/Management/ProductAndCategoryM";
 import Added from "../pages/addProduct/Added";
 import ShopingCard from "../pages/shopingCard/ShopingCard";
 import CardDetails from "../pages/card/CardDetails";
+import Payment from "../pages/shopingCard/PAyment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <ShopingCard />,
+      },
+      {
+        path: "/checkout/:money",
+        element: <Payment />,
       },
       {
         path: "/card/:id",

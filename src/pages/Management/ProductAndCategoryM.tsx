@@ -20,17 +20,6 @@ export interface TProduct {
   category: string;
 }
 
-export interface TProducts {
-  _id: string;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-  quantity: number;
-  rating: number;
-  category: string;
-}
-
 const ProductAndCategoryM = () => {
   const { data, isLoading } = useAllProductQuery({});
   const [deleteProduct] = useDeleteProductMutation();
