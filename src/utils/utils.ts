@@ -9,10 +9,9 @@ export function aggregateProducts(products: TProductCard[]): TProductCard[] {
     }
 
     productMap[product._id].QAT += product.QAT;
-    productMap[product._id].price = product.price; // Assuming price per unit, not total price
+    productMap[product._id].price = product.price;
   });
 
-  // Adjust the final price based on the total QAT
   Object.values(productMap).forEach((product) => {
     product.price = product.QAT * product.price;
   });

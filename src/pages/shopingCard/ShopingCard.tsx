@@ -47,13 +47,16 @@ const ShopingCard = () => {
         <p className="text-lg font-bold">Subtotal:</p>
         <p className="text-xl font-bold">{calculateSubtotal()}</p>
       </div>
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex justify-end gap-5">
         <Link
           to={`/checkout/${calculateSubtotal()}`}
-          className="bg-blue-300 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl"
         >
-          Checkout
+          Checkout Card
         </Link>
+        <div className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
+          Cash on Delivery
+        </div>
       </div>
     </div>
   );

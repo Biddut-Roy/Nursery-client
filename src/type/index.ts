@@ -26,3 +26,7 @@ export type TShoppingCard = {
   price: number;
   quantity: number;
 };
+
+export interface TParams extends Record<string, string | undefined> {
+  money?: string;
+}

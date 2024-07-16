@@ -1,42 +1,42 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { TParams } from "../../../type";
 
 const CheckOutFrom = () => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const [transactionId, setTransactionId] = useState("");
   const navigate = useNavigate();
-  const { money } = useParams();
+  const { money } = useParams<TParams>();
   useEffect(() => {
-    if (money > 0) {
+    const moneyAmount = money ? parseFloat(money) * 100 : NaN;
+
+    if (!isNaN(moneyAmount) && moneyAmount > 0) {
       axios
-        .post("http://localhost:5000/payment/create-payment-intent", {
-          price: money,
-        })
+        .post(
+          `${import.meta.env.VITE_BK_URL_LINK}/payment/create-payment-intent`,
+
+          {
+            amount: moneyAmount,
+            currency: "usd",
+          }
+        )
         .then((res) => {
           console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
+        })
+        .catch((error) => {
+          console.error("Error creating payment intent:", error);
         });
     }
   }, [money]);
 
-  const income = parseInt(money);
-  let limit = 0;
-  if (income === 10) {
-    limit = 200;
-  } else if (income === 20) {
-    limit = 450;
-  } else {
-    limit = 1500;
-  }
-
-  const handleSubmit = async (event) => {
-    // Block native form submission
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -55,7 +55,6 @@ const CheckOutFrom = () => {
     });
 
     if (error) {
-      console.log("[error]", error);
       setError(error.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
@@ -68,35 +67,35 @@ const CheckOutFrom = () => {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || "anonymous",
-            name: user?.displayName || "anonymous",
+            email: "NillRoy&558@gmail.com",
+            name: "Nill Roy",
           },
         },
       });
+
     if (confirmError) {
       console.log(" payment error");
     } else {
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
-        const payment = {
-          limit,
-          email: user?.email,
-          price: income,
-          date: new Date(),
-          Admin: "juniortricky.devloper@gmail.com",
-        };
-        console.log(payment.menuItemIds);
+        // const payment = {
+        //   limit,
+        //   email: user?.email,
+        //   price: income,
+        //   date: new Date(),
+        //   Admin: "juniortricky.devloper@gmail.com",
+        // };
 
-        // SecureAxios.post("/payment-update", payment).then((res) => {
+        // axios.post("/payment-update", payment).then((res) => {
         //   if (res.data?.result?.insertedId) {
         //     Swal.fire({
         //       position: "top-end",
         //       icon: "success",
-        //       title: "Thank you for the taka paisa",
+        //       title: "Thank you for your Payment",
         //       showConfirmButton: false,
         //       timer: 1500,
         //     });
-        //     navigate("/dashboards");
+        //     navigate("/");
         //   }
         // });
       }
@@ -104,7 +103,7 @@ const CheckOutFrom = () => {
   };
 
   return (
-    <div className=" w-11/12  md:w-10/12 lg:w-1/2 mx-auto bg-white mt-10 p-2 md:p-10">
+    <div className=" w-11/12  md:w-10/12 lg:w-1/2 mx-auto bg-white mt-10 pt-10 lg:p2 md:p-10 h-[300px]">
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
@@ -124,7 +123,7 @@ const CheckOutFrom = () => {
         />
         <div className=" text-center">
           <button
-            className="  mt-5 btn btn-primary btn-sm bg-blue-600"
+            className="  mt-16 btn btn-primary btn-sm bg-blue-400 hover:bg-blue-600 p-2 rounded-xl"
             type="submit"
             disabled={!stripe || !clientSecret}
           >
@@ -133,7 +132,9 @@ const CheckOutFrom = () => {
         </div>
         <div className=" text-orange-500 text-center">
           {error}
-          <h2 className=" text-cyan-500">transaction id : {transactionId}</h2>
+          <h2 className=" text-cyan-500">
+            transaction : {transactionId ? "complete" : "Failed"}
+          </h2>
         </div>
       </form>
     </div>
