@@ -27,7 +27,6 @@ const CheckOutFrom = () => {
           }
         )
         .then((res) => {
-          console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         })
         .catch((error) => {
@@ -133,7 +132,7 @@ const CheckOutFrom = () => {
         <div className=" text-orange-500 text-center">
           {error}
           <h2 className=" text-cyan-500">
-            transaction : {transactionId ? "complete" : "Failed"}
+            transaction : {transactionId ? "complete" : "Loading..."}
           </h2>
         </div>
       </form>

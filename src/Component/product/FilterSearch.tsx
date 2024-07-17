@@ -17,8 +17,8 @@ const FilterSearch = ({
 }: FilterProps) => {
   return (
     <div>
-      <form className="flex flex-col md:flex-row gap-3" onSubmit={handleSubmit}>
-        <div className="flex">
+      <div className="flex flex-col md:flex-row gap-3">
+        <form className="flex" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Search for the tool you like"
@@ -32,7 +32,7 @@ const FilterSearch = ({
           >
             Search
           </button>
-        </div>
+        </form>
         <select
           id="pricingType"
           name="pricingType"
@@ -40,6 +40,7 @@ const FilterSearch = ({
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         >
+          <option value="">Filter Category</option>
           <option value="Flower">Flower</option>
           <option value="Fruits">Fruits</option>
           <option value="Bonsai">Bonsai</option>
@@ -51,7 +52,7 @@ const FilterSearch = ({
           <option value="Pebbles">Pebbles</option>
           <option value="Mango">Mango</option>
         </select>
-      </form>
+      </div>
     </div>
   );
 };

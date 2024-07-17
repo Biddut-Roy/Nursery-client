@@ -5,6 +5,7 @@ import { selectProducts } from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { aggregateProducts } from "../../utils/utils";
 import { TProductCard } from "../../type";
+import { useEffect } from "react";
 
 const ShopingCard = () => {
   const products: TProductCard[] = useAppSelector(selectProducts);
@@ -19,6 +20,21 @@ const ShopingCard = () => {
 
     return price.toFixed(2);
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (aggregatedProducts.length > 0) {
+        event.preventDefault();
+        event.returnValue =
+          "You have items in your cart. Are you sure you want to leave or Reload?";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [aggregatedProducts]);
 
   return (
     <div className="container mx-auto p-4 pt-12">

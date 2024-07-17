@@ -13,7 +13,7 @@ import { Toaster, toast } from "sonner";
 const Allproduct = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [selectedValue, setSelectedValue] = useState<string>("Flower");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   const { data } = useGetProductQuery({
     search: searchInput,
