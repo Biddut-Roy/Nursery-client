@@ -3,17 +3,22 @@ import { Rating } from "@smastrom/react-rating";
 import FilterSearch from "../FilterSearch";
 import PaginationP from "../PaginationP";
 import { useGetProductQuery } from "../../../redux/api/baseApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addProduct } from "../../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { TProduct, TProductCard } from "../../../type";
 import { Toaster, toast } from "sonner";
+import { debouncedFetchSearchResults } from "../../../utils/searchService";
 
 const Allproduct = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchInput, setSearchInput] = useState<string>("");
   const [selectedValue, setSelectedValue] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [results, setResults] = useState<void[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { data } = useGetProductQuery({
     search: searchInput,
@@ -34,6 +39,33 @@ const Allproduct = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchResults = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await debouncedFetchSearchResults(
+          searchInput,
+          selectedValue,
+          currentPage
+        );
+        console.log(data);
+
+        if (data) {
+          setResults(data);
+        } else {
+          setResults([]); // or handle empty data scenario
+        }
+      } catch (err) {
+        setError("Failed to fetch results");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResults();
+  }, [searchInput, selectedValue, currentPage]);
+  console.log(results, loading, error);
+
   return (
     <div id="product">
       <Toaster position="top-center" />
@@ -50,10 +82,7 @@ const Allproduct = () => {
         </div>
       </div>
 
-      <section
-        id="Projects"
-        className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-10 gap-x-5 mt-10 mb-5"
-      >
+      <section className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-10 gap-x-5 mt-10 mb-5">
         {data?.data.map((item: TProduct, i: number) => (
           <div
             key={i}

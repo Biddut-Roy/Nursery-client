@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useAppSelector } from "../../redux/hooks";
 import { selectProducts } from "../../redux/features/auth/authSlice";
@@ -8,7 +8,7 @@ import { TProductCard } from "../../type";
 import { useEffect } from "react";
 
 const ShopingCard = () => {
-  const products: TProductCard[] = useAppSelector(selectProducts);
+  const products: any = useAppSelector(selectProducts);
 
   const aggregatedProducts = aggregateProducts(products);
 
