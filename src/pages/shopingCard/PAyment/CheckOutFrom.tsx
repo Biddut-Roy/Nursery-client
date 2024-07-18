@@ -20,8 +20,8 @@ const CheckOutFrom = () => {
   const [transactionId, setTransactionId] = useState("");
   const navigate = useNavigate();
   const { money } = useParams<TParams>();
-  const products: any = useAppSelector(selectProducts);
   const dispatch = useAppDispatch();
+  const products: any = useAppSelector(selectProducts);
   const aggregatedProducts = aggregateProducts(products);
   const productIDandQAT = aggregatedProducts.map((item: TProductCard) => ({
     _id: item._id,

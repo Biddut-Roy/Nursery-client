@@ -49,7 +49,6 @@ const Allproduct = () => {
           selectedValue,
           currentPage
         );
-        console.log(data);
 
         if (data) {
           setResults(data);
@@ -64,7 +63,6 @@ const Allproduct = () => {
     };
     fetchResults();
   }, [searchInput, selectedValue, currentPage]);
-  console.log(results, loading, error);
 
   return (
     <div id="product">

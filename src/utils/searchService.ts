@@ -25,6 +25,4 @@ function fetchSearchResults(
 
 const debouncedFetchSearchResults = debounce(fetchSearchResults, 300);
 
-console.log(fetchSearchResults);
-
 export { debouncedFetchSearchResults, fetchSearchResults };
