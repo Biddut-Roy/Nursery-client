@@ -1,16 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { useAppSelector } from "../../redux/hooks";
-import { selectProducts } from "../../redux/features/auth/authSlice";
+import { Toaster, toast } from "sonner";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  clearProducts,
+  selectProducts,
+} from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { aggregateProducts } from "../../utils/utils";
 import { TProductCard } from "../../type";
 import { useEffect } from "react";
+import axios from "axios";
+
+import { Button } from "../../components/ui/button";
 
 const ShopingCard = () => {
   const products: any = useAppSelector(selectProducts);
-
   const aggregatedProducts = aggregateProducts(products);
+  const dispatch = useAppDispatch();
 
   const calculateSubtotal = () => {
     const price = aggregatedProducts.reduce(
@@ -36,8 +42,28 @@ const ShopingCard = () => {
     };
   }, [aggregatedProducts]);
 
+  const productIDandQAT = aggregatedProducts.map((item: TProductCard) => ({
+    _id: item._id,
+    QAT: item.QAT,
+  }));
+
+  const handelSubmit = () => {
+    axios
+      .patch(
+        `${import.meta.env.VITE_BK_URL_LINK}/product/payment-update`,
+        productIDandQAT
+      )
+      .then((res) => {
+        if (res.data?.success) {
+          toast.success("Your product Cash on Delivery");
+          dispatch(clearProducts());
+        }
+      });
+  };
+
   return (
     <div className="container mx-auto p-4 pt-12">
+      <Toaster position="top-center" />
       <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
       <table className="w-full table-auto">
         <thead>
@@ -70,9 +96,12 @@ const ShopingCard = () => {
         >
           Checkout Card
         </Link>
-        <div className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
+        <Button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl"
+          onClick={handelSubmit}
+        >
           Cash on Delivery
-        </div>
+        </Button>
       </div>
     </div>
   );

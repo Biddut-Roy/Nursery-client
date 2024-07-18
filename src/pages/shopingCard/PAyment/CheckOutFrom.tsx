@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Toaster, toast } from "sonner";
 import axios from "axios";
-import { TParams } from "../../../type";
+import { TParams, TProductCard } from "../../../type";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+  clearProducts,
+  selectProducts,
+} from "../../../redux/features/auth/authSlice";
+import { aggregateProducts } from "../../../utils/utils";
 
 const CheckOutFrom = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -13,6 +20,14 @@ const CheckOutFrom = () => {
   const [transactionId, setTransactionId] = useState("");
   const navigate = useNavigate();
   const { money } = useParams<TParams>();
+  const products: any = useAppSelector(selectProducts);
+  const dispatch = useAppDispatch();
+  const aggregatedProducts = aggregateProducts(products);
+  const productIDandQAT = aggregatedProducts.map((item: TProductCard) => ({
+    _id: item._id,
+    price: item.QAT,
+  }));
+
   useEffect(() => {
     const moneyAmount = money ? parseFloat(money) * 100 : NaN;
 
@@ -77,32 +92,21 @@ const CheckOutFrom = () => {
     } else {
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
-        // const payment = {
-        //   limit,
-        //   email: user?.email,
-        //   price: income,
-        //   date: new Date(),
-        //   Admin: "juniortricky.devloper@gmail.com",
-        // };
 
-        // axios.post("/payment-update", payment).then((res) => {
-        //   if (res.data?.result?.insertedId) {
-        //     Swal.fire({
-        //       position: "top-end",
-        //       icon: "success",
-        //       title: "Thank you for your Payment",
-        //       showConfirmButton: false,
-        //       timer: 1500,
-        //     });
-        //     navigate("/");
-        //   }
-        // });
+        axios.patch("/product/payment-update", productIDandQAT).then((res) => {
+          if (res.data?.result?.insertedId) {
+            toast.success("Payment is Complete");
+            dispatch(clearProducts());
+            navigate("/");
+          }
+        });
       }
     }
   };
 
   return (
     <div className=" w-11/12  md:w-10/12 lg:w-1/2 mx-auto bg-white mt-10 pt-10 lg:p2 md:p-10 h-[300px]">
+      <Toaster position="top-center" />
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
