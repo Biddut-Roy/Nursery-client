@@ -2,29 +2,27 @@
 import { Rating } from "@smastrom/react-rating";
 import FilterSearch from "../FilterSearch";
 import PaginationP from "../PaginationP";
-import { useGetProductQuery } from "../../../redux/api/baseApi";
+// import { useGetProductQuery } from "../../../redux/api/baseApi";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addProduct } from "../../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { TProduct, TProductCard } from "../../../type";
 import { Toaster, toast } from "sonner";
-import { debouncedFetchSearchResults } from "../../../utils/searchService";
+import { debounce } from "../../../utils/debounce";
 
 const Allproduct = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const [results, setResults] = useState<void[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<any>();
 
-  const { data } = useGetProductQuery({
-    search: searchInput,
-    filter: selectedValue,
-    page: currentPage,
-  });
+  // const { data } = useGetProductQuery({
+  //   search: searchInput,
+  //   filter: selectedValue,
+  //   page: currentPage,
+  // });
 
   const dispatch = useAppDispatch();
 
@@ -40,28 +38,30 @@ const Allproduct = () => {
   };
 
   useEffect(() => {
-    const fetchResults = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await debouncedFetchSearchResults(
-          searchInput,
-          selectedValue,
-          currentPage
-        );
+    const debouncedSearchTerm = debounce(
+      (search: string, filter: string, page: number) => {
+        const params = new URLSearchParams();
+        if (search) params.append("search", search);
+        if (filter) params.append("filter", filter);
+        if (page) params.append("page", page.toString());
 
-        if (data) {
-          setResults(data);
-        } else {
-          setResults([]); // or handle empty data scenario
-        }
-      } catch (err) {
-        setError("Failed to fetch results");
-      } finally {
-        setLoading(false);
-      }
+        fetch(
+          `${import.meta.env.VITE_BK_URL_LINK}/product/get?${params.toString()}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            setData(data.data);
+          })
+          .catch((error) => console.error("API call failed:", error));
+      },
+      300
+    );
+
+    debouncedSearchTerm(searchInput, selectedValue, currentPage);
+
+    return () => {
+      debouncedSearchTerm.cancel();
     };
-    fetchResults();
   }, [searchInput, selectedValue, currentPage]);
 
   return (
@@ -81,7 +81,7 @@ const Allproduct = () => {
       </div>
 
       <section className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-10 gap-x-5 mt-10 mb-5">
-        {data?.data.map((item: TProduct, i: number) => (
+        {data?.map((item: TProduct, i: number) => (
           <div
             key={i}
             className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
