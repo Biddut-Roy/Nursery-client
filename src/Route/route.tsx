@@ -6,6 +6,7 @@ import Added from "../pages/addProduct/Added";
 import ShopingCard from "../pages/shopingCard/ShopingCard";
 import CardDetails from "../pages/card/CardDetails";
 import Payment from "../pages/shopingCard/PAyment/Payment";
+import Allproduct from "../Component/product/allProduct/Allproduct";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +18,12 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "/d",
+        path: "/management",
         element: <ProductAndCategoryM />,
+      },
+      {
+        path: "/products",
+        element: <Allproduct />,
       },
       {
         path: "/add",
