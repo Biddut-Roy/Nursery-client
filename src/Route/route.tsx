@@ -7,6 +7,7 @@ import ShopingCard from "../pages/shopingCard/ShopingCard";
 import CardDetails from "../pages/card/CardDetails";
 import Payment from "../pages/shopingCard/PAyment/Payment";
 import Allproduct from "../Component/product/allProduct/Allproduct";
+import Product from "../Component/product/Product";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Allproduct />,
+      },
+      {
+        path: "/category",
+        element: <Product />,
       },
       {
         path: "/add",
