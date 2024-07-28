@@ -4,10 +4,12 @@ import { Button } from "../../components/ui/button";
 import {
   useAllProductQuery,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } from "../../redux/api/baseApi";
 import Swal from "sweetalert2";
 import { Rating, ThinStar } from "@smastrom/react-rating";
 import axios from "axios";
+import { toast } from "sonner";
 
 export interface TProduct {
   _id: string;
@@ -32,6 +34,9 @@ const ProductAndCategoryM = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [id, setID] = useState("");
+
+  const [updateData, { isSuccess }] = useUpdateProductMutation();
 
   const toggleModal = (item: TProduct) => {
     const prices = String(item.price);
@@ -43,6 +48,7 @@ const ProductAndCategoryM = () => {
     setSelectedValue(item.category);
     setDescription(item.description);
     setQuantity(QTA);
+    setID(item._id);
   };
 
   const toggleModal1 = () => {
@@ -93,7 +99,7 @@ const ProductAndCategoryM = () => {
       const qta = parseInt(quantity, 10);
 
       const submittedData: TProduct = {
-        _id: image,
+        _id: id,
         title,
         price: pri,
         image,
@@ -103,7 +109,10 @@ const ProductAndCategoryM = () => {
         quantity: qta,
       };
 
-      console.log("Form Data Submitted:", { submittedData });
+      updateData(submittedData);
+      if (isSuccess) {
+        toast.success("Update Successfully");
+      }
 
       // Reset form fields
       setTitle("");

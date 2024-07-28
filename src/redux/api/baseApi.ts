@@ -21,6 +21,14 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["nursery"],
     }),
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: "/product/update",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["nursery"],
+    }),
     getProduct: builder.query({
       query: ({ search, filter, page }) => {
         const params = new URLSearchParams();
@@ -67,4 +75,5 @@ export const {
   useDeleteProductMutation,
   useAllProductQuery,
   useSingleProductQuery,
+  useUpdateProductMutation,
 } = baseApi;

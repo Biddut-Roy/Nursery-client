@@ -4,7 +4,7 @@ import { Rating, ThinStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import { useAddProductMutation } from "../../redux/api/baseApi";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 interface TFormData {
   title: string;
@@ -96,6 +96,7 @@ const Added = () => {
 
   return (
     <form className="max-w-xl mx-auto my-10 mt-15 " onSubmit={handleSubmit}>
+      <Toaster position="top-center" />
       <div className="grid md:grid-cols-2 md:gap-6 pt-10">
         <div className="relative z-0 w-full mb-5 group">
           <input
