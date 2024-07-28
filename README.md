@@ -1,10 +1,10 @@
 <div align="center">
-  <h1>Comprehensive Project README Template</h1>
+  <h1>Comprehensive Project README</h1>
 </div>
 
 ---
 
-# Project Name : ## Online Nursery
+# Project Name : Online Nursery
 
 ## Introduction
 
