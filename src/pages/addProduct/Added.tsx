@@ -89,8 +89,9 @@ const Added = () => {
         setQuantity("");
       } catch (error) {
         console.error("Error uploading image:", error);
-        // Handle the error accordingly
       }
+    } else {
+      toast.error("Please added a img File");
     }
   };
 

@@ -5,7 +5,7 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_BK_URL_LINK}`,
   }),
-  tagTypes: ["nursery", "Product"],
+  tagTypes: ["Nursery", "Product"],
   endpoints: (builder) => ({
     getCategory: builder.query({
       query: () => ({
@@ -19,7 +19,7 @@ export const baseApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["nursery"],
+      invalidatesTags: ["Nursery"],
     }),
     updateProduct: builder.mutation({
       query: (data) => ({
@@ -27,7 +27,7 @@ export const baseApi = createApi({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["nursery"],
+      invalidatesTags: ["Nursery"],
     }),
     getProduct: builder.query({
       query: ({ search, filter, page }) => {

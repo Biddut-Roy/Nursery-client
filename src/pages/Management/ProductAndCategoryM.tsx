@@ -35,6 +35,7 @@ const ProductAndCategoryM = () => {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [id, setID] = useState("");
+  const [img, setImg] = useState("");
 
   const [updateData, { isSuccess }] = useUpdateProductMutation();
 
@@ -49,6 +50,7 @@ const ProductAndCategoryM = () => {
     setDescription(item.description);
     setQuantity(QTA);
     setID(item._id);
+    setImg(item.image);
   };
 
   const toggleModal1 = () => {
@@ -91,6 +93,8 @@ const ProductAndCategoryM = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       image = res.data.data.url;
+    } else {
+      image = img;
     }
 
     try {
